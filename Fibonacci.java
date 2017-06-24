@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class DEV_3 {
+public class Fibonacci {
   public static void main(String[] args) {
     long number, first, second = 0, sum = 1;
     System.out.println("write down any non-negative number:");
