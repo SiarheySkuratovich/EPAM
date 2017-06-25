@@ -6,23 +6,24 @@ public class Order {
     Scanner in = new Scanner(System.in);
     String order = in.nextLine();
     System.out.println("you have written: " + order);
-    int Length = order.length();
-    char strArray[] = order.toCharArray();
+    String[] orderParts = order.split(" ");
+    int Length = orderParts.length;
+    int NumArr[] = new int [Length];
     int q = 0;
-    for (int i = 0; i < Length ; i++) {
-      if (strArray[i] == ' ') {
-        q++;
+    for (int i = 0; i < Length; i++) {
+      NumArr[i] =  Integer.parseInt(orderParts[i]);
+      System.out.println(NumArr[i]);
+      if (i > 0) {
+       if (NumArr[i] < NumArr[i - 1]) {
+         q++;
+       }
       }
     }
-    System.out.println("there are " + (q + 1) + " numbers");
-    int numberArray[] = new int[q];
-    String temp;
-    for (int i = 0; i < Length ; i++) {
-      if (strArray[i] == ' ') {
-        temp = 
-        numberArray[i] = Integer.parseInt(strArray[i - 1]);
-        System.out.println(numberArray[i] + "!!!!!!!");
-      }
+    if (q == Length - 1) {
+      System.out.println("the order is decreasing");
+    }
+      else {
+      System.out.println("the order is NOT decreasing");
     }
   }
-} 
+}
