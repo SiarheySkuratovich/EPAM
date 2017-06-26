@@ -8,7 +8,6 @@ public class Order {
     System.out.println("you have written: " + order);
     String[] orderParts = order.split(" ");
     int Length = orderParts.length;
-    boolean identifier = true;
     try { 
       for (int i = 0; i < Length - 1; i++) {
         if (Integer.parseInt(orderParts[i + 1]) > Integer.parseInt(orderParts[i])) {
