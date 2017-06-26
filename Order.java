@@ -12,18 +12,14 @@ public class Order {
     try { 
       for (int i = 0; i < Length - 1; i++) {
         if (Integer.parseInt(orderParts[i + 1]) > Integer.parseInt(orderParts[i])) {
-          identifier = false;
-          break;
+          System.out.println("the order is NOT decreasing");
+          return;
         }
-      }
+      }  
     } catch (NumberFormatException ex) {
       System.out.println("It is NOT an order of numbers! Try again");
       return;
     }
-    if (identifier) {
-      System.out.println("the order is decreasing");
-    } else {
-      System.out.println("the order is NOT decreasing");
-    }
+    System.out.println("the order is decreasing");
   }
 }
