@@ -8,17 +8,14 @@ public class Order {
     System.out.println("you have written: " + order);
     String[] orderParts = order.split(" ");
     int Length = orderParts.length;
-    int numArr[] = new int [Length];
-    int q = 0;
-    for (int i = 0; i < Length; i++) {
-      numArr[i] =  Integer.parseInt(orderParts[i]);
-      if (i > 0) {
-       if (numArr[i] < numArr[i - 1]) {
-         q++;
-       }
+    boolean identifier = true;
+    for (int i = 0; i < Length - 1; i++) {
+      if (Integer.parseInt(orderParts[i + 1]) > Integer.parseInt(orderParts[i])) {
+        identifier = false;
+        break;
       }
     }
-    if (q == Length - 1) {
+    if (identifier) {
       System.out.println("the order is decreasing");
     } else {
       System.out.println("the order is NOT decreasing");
