@@ -2,14 +2,15 @@ import java.util.Scanner;
 
 public class Order {
   public static void main(String[] args) {
+    String[] orderParts;
     if (args.length == 0) {
     System.out.println("Write down any order of numbers separated by a space");
     Scanner in = new Scanner(System.in);    
     String order = in.nextLine();
     System.out.println("you have written: " + order);
-    String[] orderParts = order.split(" ");
+    orderParts = order.split(" ");
     } else {
-      String[] orderParts = new String[args.length];
+      orderParts = new String[args.length];
       for(int i = 0; i < args.length; i++) {
         orderParts[i] = args[i];
       }
