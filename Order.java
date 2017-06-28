@@ -5,13 +5,13 @@ public class Order {
   public static void main(String[] args) {
     String[] orderParts;
     if (args.length == 0) {
-    System.out.println("Write down any order of numbers separated by a space");
-    Scanner in = new Scanner(System.in);    
-    String order = in.nextLine();
-    System.out.println("you have written: " + order);
-    orderParts = order.split(" ");
+      System.out.println("Write down any order of numbers separated by a space");
+      Scanner in = new Scanner(System.in);    
+      String order = in.nextLine();
+      System.out.println("you have written: " + order);
+      orderParts = order.split(" ");
     } else {
-         orderParts = Arrays.copyOf(args, args.length);
+        orderParts = Arrays.copyOf(args, args.length);
     }
     try { 
       for (int i = 0; i < orderParts.length - 1; i++) {
