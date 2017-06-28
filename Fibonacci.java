@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class Fibonacci {
   public static void main(String[] args) {
@@ -10,7 +11,7 @@ public class Fibonacci {
     Scanner in = new Scanner(System.in);
     try {
       number = in.nextInt();
-    } catch (Exception e) {
+    } catch (InputMismatchException e) {
       System.out.println("the number you have entered is too big");
       return;
     }
