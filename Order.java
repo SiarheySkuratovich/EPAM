@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Order {
   public static void main(String[] args) {
@@ -10,10 +11,7 @@ public class Order {
     System.out.println("you have written: " + order);
     orderParts = order.split(" ");
     } else {
-      orderParts = new String[args.length];
-      for(int i = 0; i < args.length; i++) {
-        orderParts[i] = args[i];
-      }
+         orderParts = Arrays.copyOf(args, args.length);
     }
     try { 
       for (int i = 0; i < orderParts.length - 1; i++) {
