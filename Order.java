@@ -11,27 +11,21 @@ public class Order {
    * @param args comand line values
    * @see Analysis#analyze(String[])
    * @see Read#readString()
+   * @see Answer#giveAnswer(byte)
    */
   public static void main(String[] args) {
     String[] orderParts;
+    Analysis takeTo = new Analysis();
+    Answer please = new Answer();
     if (args.length == 0) {
       System.out.println("Write down any order of numbers separated by a space");
       Reading in = new Reading();
       String order = in.readString();
       System.out.println("you have written: " + order);
       orderParts = order.split(" ");
+      please.giveAnswer(takeTo.analyze(orderParts));
     } else {
-      orderParts = Arrays.copyOf(args, args.length);
+      please.giveAnswer(takeTo.analyze(args));
     }
-    Analysis takeTo = new Analysis();
-    try {
-      if(takeTo.analyze(orderParts)) {
-        return;
-      }
-    } catch (NumberFormatException ex) {
-      System.out.println("It is NOT an order of numbers! Try again");
-      return;
-    }
-    System.out.println("the order is decreasing");
   }
 }
