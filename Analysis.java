@@ -1,27 +1,27 @@
 /**
- * This class makes string-analyzing objects
+ * Makes string-analyzing objects
  */
 public class Analysis {
   /**
-   * The method determines whether the order is increasing.
+   * Determines whether the order is increasing.
    * @param orderParts a string we get to analyze.
-   * @return 1 means that order is NOT decreasing.
-   * @return 2 means that order is decreasing.
-   * @return 3 means that some wrong values was entered.
+   * @return true is NOT decreasing.
+   * @return false is decreasing.
    */
-  public byte analyze (String[] orderParts) {
-    try {
-      if (orderParts.length == 1) {
-        return 3;
+  public boolean analyze (String[] arrayOfnumbers) {
+    for (int i = 0; i < arrayOfnumbers.length - 1; i++) {
+      if (Integer.parseInt(arrayOfnumbers[i + 1]) >= Integer.parseInt(arrayOfnumbers[i])) {
+        return true;
       }
-      for (int i = 0; i < orderParts.length - 1; i++) {
-        if (Integer.parseInt(orderParts[i + 1]) > Integer.parseInt(orderParts[i])) {
-          return 1;
-        }
-      }
-      return 2;
-    } catch (NumberFormatException ex) {
-      return 3;
     }
+    return false;
+  }
+  public boolean check(String[] arrayOfsymbols) {
+    if (arrayOfsymbols.length == 1) {
+      System.out.println("There is only one member. Try again");
+      return true;
+    }
+    return false;
   }
 }
+
