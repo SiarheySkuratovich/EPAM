@@ -1,9 +1,9 @@
 /**
- * Makes objects used for giving answer
+ * Gives answers.
  */
 public class Answer {
   /**
-   * Gives answer.
+   * Prints an answer to the console to the task of the program (@link Order).
    * @param analyzed is flag to give one of two answer.
    */
   public void giveAnswer(boolean analyzed) {
