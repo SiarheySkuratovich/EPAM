@@ -1,21 +1,22 @@
 import java.util.Scanner;
 
 /**
- * Gets sides from command line and writes to array.
+ * Gets sides of geometric shapes.
  */
 public class SideReading {
 
   /**
-   * Gets sides from command line and writes to array.
-   * @param sides is sides value array.
+   * Gets trangle sides from console and returns them as array.
    */
-  public void readSide(double[] sides) {
+  public double[] readSide() {
     Scanner in = new Scanner(System.in);
     System.out.println("Print 3 Triangle sides:");
+    double[] gottenSides = new double[3];
     for (int i = 0; i < 3; i++) {
       System.out.print("side" + (i + 1) + ": ");
-      sides[i] = in.nextDouble();
+      gottenSides[i] = in.nextDouble();
       System.out.print("\n");
     }
+    return gottenSides;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Cheks on the type of triangle.
+ * Operates with triangles.
  */
 public class Triangle {
   
@@ -9,24 +9,34 @@ public class Triangle {
   double[] sides;
 
   /*
-   * Creates the Triangle object using (@link SideReading#readSide(double[]).
+   * Creates the Triangle object.
+   * @param gottenSides we get from console. 
    */
-  Triangle() {
-    sides = new double[3];
-    SideReading getting = new SideReading();
-    getting.readSide(sides);
+  Triangle(double[] gottenSides) {
+    sides = gottenSides;
   }
 
   /*
-   * Cheks on the type of triangle.
+   * Checks whether triangle is equilateral.
+   * @return true if the triangle is Equilateral and false if it is not.
    */
-  public void check() {
+  public boolean checkForEquilateral() {
     if(sides[0] == sides[1] && sides[1] == sides[2]) {
-      System.out.println("Triangle is equilateral");
-    } else if (sides[0] == sides[1] || sides[1] == sides[2] || sides[0] == sides[2]) {
-      System.out.println("Triangle is isosceles");
+      return true;
     } else {
-      System.out.println("Triangle is usual");
+      return false;
+    }
+  } 
+
+  /*
+   * Checks whether triangle is equilateral.
+   * @return true if the triangle is equilateral and false if it is not.
+   */
+  public boolean checkForIsosceles() {
+    if (sides[0] == sides[1] || sides[1] == sides[2] || sides[0] == sides[2]) {
+      return true;
+    } else {
+      return false;
     }
   }
 }
