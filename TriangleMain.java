@@ -11,11 +11,12 @@ public class TriangleMain {
    * @param args comand line values
    * @see Triangle#checkForEquilateral()
    * @see Triangle#checkForIsosceles()
+   * @see SideReading#readSides();
    */
   public static void main(String[] args) {
     try {
       SideReading getting = new SideReading();
-      Triangle triangle = new Triangle(getting.readSide());
+      Triangle triangle = new Triangle(getting.readSides());
       if (triangle.checkForEquilateral()) {
         System.out.println("Triangle is equilateral");
         return;
@@ -28,6 +29,9 @@ public class TriangleMain {
       }
     } catch (InputMismatchException e) {
       System.out.println("It's not a number. Try again");
+      return;
+    } catch (java.lang.NullPointerException ex) {
+      System.out.println("NullPointerException was caught");
       return;
     }
   }

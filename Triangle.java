@@ -1,3 +1,5 @@
+import java.lang.NullPointerException;
+
 /*
  * Operates with triangles.
  */
@@ -10,10 +12,13 @@ public class Triangle {
 
   /*
    * Creates the Triangle object.
-   * @param gottenSides we get from console. 
+   * If param is null, the equals() method cause NullPointerException.
+   * @param gottenSides is used for class field assigning.
    */
   Triangle(double[] gottenSides) {
-    sides = gottenSides;
+    if (!(gottenSides.equals(sides))) {
+      sides = gottenSides;
+    }
   }
 
   /*

@@ -6,9 +6,10 @@ import java.util.Scanner;
 public class SideReading {
 
   /**
-   * Gets trangle sides from console and returns them as array.
+   * Gets triangle sides from console.
+   * @return array of gotten sides.
    */
-  public double[] readSide() {
+  public double[] readSides() {
     Scanner in = new Scanner(System.in);
     System.out.println("Print 3 Triangle sides:");
     double[] gottenSides = new double[3];
