@@ -38,11 +38,7 @@ public class Triangle {
    * @return true if the triangle is equilateral and false if it is not.
    */
   public boolean checkForIsosceles() {
-    if (sides[0] == sides[1] || sides[1] == sides[2] || sides[0] == sides[2]) {
-      return true;
-    } else {
-      return false;
-    }
+    return (sides[0] == sides[1] || sides[1] == sides[2] || sides[0] == sides[2]);
   }
 }
     
