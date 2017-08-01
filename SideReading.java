@@ -6,18 +6,16 @@ import java.util.Scanner;
 public class SideReading {
 
   /**
-   * Gets triangle sides from console.
-   * @return array of gotten sides.
+   * Sets triangle sides from console to empty gotten array.
+   * @param sides empty array prepared for triangle sides.
    */
-  public double[] readSides() {
+  public void readSides(double[] sides) {
     Scanner in = new Scanner(System.in);
     System.out.println("Print 3 Triangle sides:");
-    double[] gottenSides = new double[3];
     for (int i = 0; i < 3; i++) {
       System.out.print("side" + (i + 1) + ": ");
-      gottenSides[i] = in.nextDouble();
+      sides[i] = in.nextDouble();
       System.out.print("\n");
     }
-    return gottenSides;
   }
 }
