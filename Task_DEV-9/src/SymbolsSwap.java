@@ -1,7 +1,18 @@
 import java.util.Random;
 
-public class RandomSymbolsSwap {
-  public String swap(String firstString, String secondString) {
+/**
+ * Swaps symbols in strings.
+ */
+public class SymbolsSwap {
+
+  /**
+   * Gets a piece of the second string and puts instead another piece in the first string.
+   * Length of string pieces, places of cutting and insertion are chosen randomly.
+   * @param firstString a string we gets to insert symbols into it.
+   * @param secondString a string we gets to cut symbols from it.
+   * @return first string after swapping.
+   */
+  public String swapPiecesRandomly(String firstString, String secondString) {
     Random random = new Random();
     int quantityOfSymbolsInSecond = random.nextInt(secondString.length() - 1) + 1;
     int fromPlaceInTheSecondString = random.nextInt(secondString.length() - quantityOfSymbolsInSecond);
