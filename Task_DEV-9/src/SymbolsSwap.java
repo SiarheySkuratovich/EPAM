@@ -20,7 +20,7 @@ public class SymbolsSwap {
     int toPlaceInTheFirstString = random.nextInt(firstString.length());
     String PartOfFirstString = firstString.substring(0, toPlaceInTheFirstString).concat(temp);
     int quantityOfSymbolsInFirst = random.nextInt(firstString.length() - toPlaceInTheFirstString - 1) + 1;
-    String finalFirstString = PartOfFirstString.concat(firstString.substring(toPlaceInTheFirstString + quantityOfSymbolsInFirst));
-    return finalFirstString;
+    firstString = PartOfFirstString.concat(firstString.substring(toPlaceInTheFirstString + quantityOfSymbolsInFirst));
+    return firstString;
   }
 }
