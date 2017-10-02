@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by siarhey on 01.10.17.
@@ -17,24 +15,40 @@ public class Main {
   commonArray[2] = c;
 
   SearchForItem searchForItem = new SearchForItem();
+  ////////////////////////чистим каждый от повторяшек/////////////////////////////
   for (int i = 0; i < commonArray.length; i++) {
-    commonArray[i] = searchForItem.deleteEqual(commonArray[i]);
+    commonArray[i] = searchForItem.deleteEqual(commonArray[i], false);
     }
 
     for (Integer[] n : commonArray) {
       for (Integer k : n) {
         System.out.print(k + " ");
       }
-      System.out.println();
+      System.out.println( "!!!!!!!!!!!!");
     }
-  /*ArrayList<Integer> ARRAY = searchForItem.findEqual(array);
-    for (int i = 0; i < ARRAY.size(); i++) {
-      System.out.println(ARRAY.get(i));
-    }*/
+    ///////////////////////////////////////////////////////////////////////////////
 
-    /*for (Integer n:arrayList) {
-      System.out.println(n);
-    }*/
+    //////////////объеденяем чищеные массивы в один/////////////////
+    Integer[] commonLongArray = {};
+  for (int i = 0; i < 3; i++) {
+    commonLongArray = searchForItem.joinArrays(commonLongArray, commonArray[i]);
+  }
+    for (Integer n : commonLongArray) {
+      System.out.print(n + " ");
+    }
+    System.out.println();
+  //////////////////////////////////////////////////////////////////////
+ Integer[] almostAnswer = searchForItem.deleteEqual(commonLongArray, true);
+    for (Integer n : almostAnswer) {
+      System.out.print(n + " ");
+    }
+    System.out.println();
+
+    Integer[] answer = searchForItem.deleteEqual(almostAnswer, false);
+    for (Integer n : answer) {
+      System.out.print(n + " ");
+    }
+    System.out.println();
 
   }
 }

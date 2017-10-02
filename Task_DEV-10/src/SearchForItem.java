@@ -29,19 +29,34 @@ public class SearchForItem {
     return finalArray;
   }
 
-  public Integer[] deleteEqual(Integer[] array) {
+  public Integer[] deleteEqual(Integer[] array, boolean WhichReturn) {
+    ArrayList<Integer> deletedSymbols = new ArrayList<>();
     ArrayList<Integer> arrayList = new ArrayList<>();
     Collections.addAll(arrayList, array);
     for (int i = 0; i < arrayList.size(); i++) {
       for (int j = i + 1; j < arrayList.size(); j++) {
         if (arrayList.get(i) == arrayList.get(j)) {
+          deletedSymbols.add(arrayList.get(i));
           arrayList.remove(j);
           j--;
         }
       }
     }
-    array = (arrayList.toArray(new Integer[0]));
-    return array;
+    if (!WhichReturn) {
+      return arrayList.toArray(new Integer[0]);
+    } else return deletedSymbols.toArray(new Integer[0]);
+  }
+
+  public Integer[] joinArrays (Integer[] array1, Integer[] array2) {
+    Integer[] joinedArray = new Integer[array1.length + array2.length];
+    for (int i = 0; i < array1.length + array2.length; i++) {
+      if (i < array1.length) {
+        joinedArray[i] = array1[i];
+      } else {
+        joinedArray[i] = array2[i - array1.length];
+      }
+    }
+    return joinedArray;
   }
 }
 
