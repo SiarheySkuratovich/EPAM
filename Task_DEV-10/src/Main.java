@@ -4,51 +4,51 @@
  */
 public class Main {
   public static void main(String[] args) {
-   Integer[] a = {2, 4, 5 ,42, 32,3};
-   Integer[] b = {21,3,4,3,21,4};
-   Integer[] c = {3,5,2,5,8,3,2,5,6};
-
-  Integer[][] commonArray = new Integer[3][];
-
-  commonArray[0] = a;
-  commonArray[1] = b;
-  commonArray[2] = c;
-
-  SearchForItem searchForItem = new SearchForItem();
-  ////////////////////////чистим каждый от повторяшек/////////////////////////////
-  for (int i = 0; i < commonArray.length; i++) {
-    commonArray[i] = searchForItem.deleteEqual(commonArray[i], false);
-    }
-
-    for (Integer[] n : commonArray) {
-      for (Integer k : n) {
+    Double[] a = {2.2, 4.3, 5.0, 4.2, 3.2, 3.0, 5.7};
+    Double[] b = {2.1, 2.2, 4.0, 3.2, 2.1, 4.9};
+    Double[] c = {3.6, 5.7, 2.5, 5.0, 8.5, 3.3, 2.7, 4.9};
+    Double[][] commonArray = new Double[3][];
+    commonArray[0] = a;
+    commonArray[1] = b;
+    commonArray[2] = c;
+    SearchForItem searchForItem = new SearchForItem();
+    System.out.println("Source arrays:");
+    for (Double[] n : commonArray) {
+      for (Double k : n) {
         System.out.print(k + " ");
       }
-      System.out.println( "!!!!!!!!!!!!");
+      System.out.println();
     }
-    ///////////////////////////////////////////////////////////////////////////////
-
-    //////////////объеденяем чищеные массивы в один/////////////////
-    Integer[] commonLongArray = {};
-  for (int i = 0; i < 3; i++) {
-    commonLongArray = searchForItem.joinArrays(commonLongArray, commonArray[i]);
-  }
-    for (Integer n : commonLongArray) {
+    for (int i = 0; i < commonArray.length; i++) {
+      commonArray[i] = searchForItem.deleteEqual(commonArray[i], false);
+    }
+    System.out.println("Deleted equal elements from each array:");
+    for (Double[] n : commonArray) {
+      for (Double k : n) {
+        System.out.print(k + " ");
+      }
+      System.out.println();
+    }
+    Double[] commonLongArray = {};
+    for (int i = 0; i < 3; i++) {
+      commonLongArray = searchForItem.joinArrays(commonLongArray, commonArray[i]);
+    }
+    System.out.println("All arrays are combined to one long array:");
+    for (Double n : commonLongArray) {
       System.out.print(n + " ");
     }
     System.out.println();
-  //////////////////////////////////////////////////////////////////////
- Integer[] almostAnswer = searchForItem.deleteEqual(commonLongArray, true);
-    for (Integer n : almostAnswer) {
+    System.out.println("Elements occurring in arrays two or more times");
+    Double[] almostAnswer = searchForItem.deleteEqual(commonLongArray, true);
+    for (Double n : almostAnswer) {
       System.out.print(n + " ");
     }
     System.out.println();
-
-    Integer[] answer = searchForItem.deleteEqual(almostAnswer, false);
-    for (Integer n : answer) {
+    Double[] answer = searchForItem.deleteEqual(almostAnswer, false);
+    System.out.println("Repeating elements are removed. Final answer:");
+    for (Double n : answer) {
       System.out.print(n + " ");
     }
     System.out.println();
-
   }
 }
