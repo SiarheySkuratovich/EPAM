@@ -13,7 +13,7 @@ public class ArraysWorker {
    * @param WhichReturn manages return.
    * @return if true returns array of deleted symbols else returns purified source array.
    */
-  public Double[] deleteEqual(Double[] array, boolean WhichReturn) {
+  public Double[] deleteEqual(Double[] array, boolean WhichReturn) throws NullPointerException {
     ArrayList<Double> deletedSymbols = new ArrayList<>();
     ArrayList<Double> arrayList = new ArrayList<>();
     Collections.addAll(arrayList, array);
@@ -37,7 +37,7 @@ public class ArraysWorker {
    * @param array2 Array we are going to put by the second.
    * @return Combined array.
    */
-  public Double[] combineArrays(Double[] array1, Double[] array2) {
+  public Double[] combineArrays(Double[] array1, Double[] array2) throws NullPointerException {
     Double[] combinedArray = new Double[array1.length + array2.length];
     for (int i = 0; i < array1.length + array2.length; i++) {
       if (i < array1.length) {
