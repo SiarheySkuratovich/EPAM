@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.ArrayList;
-
-
+import java.util.Iterator;
+import java.util.Map;
 
 public class Translator {
   private HashMap<Character, String> ruEng = new HashMap<Character, String>();
@@ -12,7 +12,7 @@ public class Translator {
     ruEng.put('Г', "G");
     ruEng.put('Д', "D");
     ruEng.put('Е', "Ye");
-    ruEng.put('Ё', "Ye");
+    ruEng.put('Ё', "Yo");
     ruEng.put('Ж', "Zh");
     ruEng.put('З', "Z");
     ruEng.put('И', "I");
@@ -56,7 +56,16 @@ public class Translator {
     }
     return String.join("", arrayList);
   }
-  /*public String translateToCyrillic (String string) {
-
-  }*/
+  public String translateToCyrillic (String string) {
+    Iterator it = ruEng.entrySet().iterator();
+    while (it.hasNext()) {
+      Map.Entry<Character, String> pair = (Map.Entry)it.next();
+      String str = pair.getValue();
+      if (string.contains(pair.getValue())) {
+        string = string.replaceAll(pair.getValue(), String.valueOf(pair.getKey()));
+      }
+    }
+    return string;
+  }
 }
+
