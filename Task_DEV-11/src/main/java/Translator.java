@@ -33,7 +33,7 @@ public class Translator {
     ruEng.put('Ч', "Ch");
     ruEng.put('Ш', "Sh");
     ruEng.put('Щ', "Shch");
-    ruEng.put('Ъ', "'");
+    ruEng.put('Ъ', "#");
     ruEng.put('Ы', "Y");
     ruEng.put('Ь', "'");
     ruEng.put('Э', "E");
@@ -51,7 +51,7 @@ public class Translator {
       if (this.ruEng.containsKey(string.charAt(i))) {
         arrayList.add(this.ruEng.get(string.charAt(i)));
       } else {
-        arrayList.add(String.valueOf((string.charAt(i))));
+          arrayList.add(String.valueOf((string.charAt(i))));
       }
     }
     return String.join("", arrayList);

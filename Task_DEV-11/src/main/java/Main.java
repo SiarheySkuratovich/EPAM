@@ -5,7 +5,7 @@ public class Main {
     Scanner in = new Scanner(System.in);
    // String string = in.nextLine();
     Translator translator = new Translator();
-    System.out.println(translator.translateToCyrillic("Privyet Vsyem sdgdofgjsdiofjasofijsagi"));
+    System.out.println(translator.translateToCyrillic("Privyet Vsyem myenya zovut Syergyey, ya otlichnyy paryen i vsyo takoye bla bla bla, ya ochyen ustal programmirovat"));
 
   }
 }
