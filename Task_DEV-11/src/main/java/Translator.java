@@ -2,9 +2,12 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
+import java.lang.StringBuilder;
+import java.util.Arrays;
 
 public class Translator {
   private HashMap<Character, String> ruEng = new HashMap<Character, String>();
+  private HashMap<Character, String> complexComb = new HashMap<Character, String>();
   Translator() {
     ruEng.put('А', "A");
     ruEng.put('Б', "B");
@@ -33,9 +36,9 @@ public class Translator {
     ruEng.put('Ч', "Ch");
     ruEng.put('Ш', "Sh");
     ruEng.put('Щ', "Shch");
-    ruEng.put('Ъ', "#");
+    ruEng.put('ъ', "#");
     ruEng.put('Ы', "Y");
-    ruEng.put('Ь', "'");
+    ruEng.put('ь', "'");
     ruEng.put('Э', "E");
     ruEng.put('Ю', "Yu");
     ruEng.put('Я', "Ya");
@@ -44,6 +47,24 @@ public class Translator {
       temp.put(Character.toLowerCase(n), ruEng.get(n).toLowerCase());
     }
     ruEng.putAll(temp);
+
+
+    complexComb.put('Е', "Ye");
+    complexComb.put('Ё', "Yo");
+    complexComb.put('Ж', "Zh");
+    complexComb.put('Х', "Kh");
+    complexComb.put('Ц', "Ts");
+    complexComb.put('Ч', "Ch");
+    complexComb.put('Щ', "Shch");
+    complexComb.put('Ш', "Sh");
+    complexComb.put('Ю', "Yu");
+    complexComb.put('Я', "Ya");
+    temp.clear();
+    for (Character n : complexComb.keySet()) {
+      temp.put(Character.toLowerCase(n), complexComb.get(n).toLowerCase());
+    }
+    complexComb.putAll(temp);
+
   }
   public String translateToLatin (String string) {
     ArrayList<String> arrayList = new ArrayList<>();
@@ -54,10 +75,15 @@ public class Translator {
           arrayList.add(String.valueOf((string.charAt(i))));
       }
     }
+
+    if (string.contains("ый")) {
+      arrayList.remove(arrayList.size() - 1);
+    }
     return String.join("", arrayList);
   }
   public String translateToCyrillic (String string) {
-    Iterator it = ruEng.entrySet().iterator();
+
+    Iterator it = complexComb.entrySet().iterator();
     while (it.hasNext()) {
       Map.Entry<Character, String> pair = (Map.Entry)it.next();
       String str = pair.getValue();
@@ -65,6 +91,24 @@ public class Translator {
         string = string.replaceAll(pair.getValue(), String.valueOf(pair.getKey()));
       }
     }
+
+    it = ruEng.entrySet().iterator();
+    while (it.hasNext()) {
+      Map.Entry<Character, String> pair = (Map.Entry)it.next();
+      String str = pair.getValue();
+      if (string.contains(pair.getValue())) {
+        string = string.replaceAll(pair.getValue(), String.valueOf(pair.getKey()));
+      }
+    }
+    for (int i = 0; i < string.length(); i++) {
+      if (string.charAt(i) == 'й' && string.charAt(i - 1) != 'и' && string.charAt(i + 1) == ' ') {
+        ArrayList<String>arrayList = new ArrayList<>(Arrays.asList(string.split("(?<=\\G.{1})")));
+        arrayList.add(i, "ы");
+        return String.join("", arrayList);
+
+      }
+    }
+
     return string;
   }
 }
