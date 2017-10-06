@@ -2,7 +2,6 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
-import java.lang.StringBuilder;
 import java.util.Arrays;
 
 public class Translator {
@@ -91,7 +90,6 @@ public class Translator {
         string = string.replaceAll(pair.getValue(), String.valueOf(pair.getKey()));
       }
     }
-
     it = ruEng.entrySet().iterator();
     while (it.hasNext()) {
       Map.Entry<Character, String> pair = (Map.Entry)it.next();
@@ -105,10 +103,8 @@ public class Translator {
         ArrayList<String>arrayList = new ArrayList<>(Arrays.asList(string.split("(?<=\\G.{1})")));
         arrayList.add(i, "ы");
         return String.join("", arrayList);
-
       }
     }
-
     return string;
   }
 }
