@@ -67,26 +67,22 @@ public class Translator {
 
   }
   public String translateToLatin (String string) {
-    ArrayList<String> arrayList = new ArrayList<>();
     for (int i = 0; i < string.length(); i++) {
       if (this.ruEng.containsKey(string.charAt(i))) {
-        arrayList.add(this.ruEng.get(string.charAt(i)));
-      } else {
-        arrayList.add(String.valueOf((string.charAt(i))));
+        string = string.replaceAll(string.substring(i, i + 1), this.ruEng.get(string.charAt(i)));
       }
     }
-    deleteY(arrayList);
-    return String.join("", arrayList);
+    return deleteY(string);
   }
-
-  private void deleteY(ArrayList<String> arrayList) {
+  private String deleteY(String string) {
     Pattern pattern = Pattern.compile("(yy(\\p{Punct}|\\s))|(yy$)");
-    Matcher matcher = pattern.matcher(String.join("", arrayList));
+    Matcher matcher = pattern.matcher(string);
     int i = 0;
     while (matcher.find()) {
-      arrayList.remove(matcher.start() - i);
+      string = string.substring(0, matcher.start() - i) + string.substring(matcher.start() - i + 1);
       i++;
     }
+    return string;
   }
   public String translateToCyrillic (String string) {
     Iterator it = complexComb.entrySet().iterator();
