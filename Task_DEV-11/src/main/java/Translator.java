@@ -3,6 +3,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class Translator {
   private HashMap<Character, String> ruEng = new HashMap<Character, String>();
@@ -46,8 +49,6 @@ public class Translator {
       temp.put(Character.toLowerCase(n), ruEng.get(n).toLowerCase());
     }
     ruEng.putAll(temp);
-
-
     complexComb.put('Е', "Ye");
     complexComb.put('Ё', "Yo");
     complexComb.put('Ж', "Zh");
@@ -71,17 +72,23 @@ public class Translator {
       if (this.ruEng.containsKey(string.charAt(i))) {
         arrayList.add(this.ruEng.get(string.charAt(i)));
       } else {
-          arrayList.add(String.valueOf((string.charAt(i))));
+        arrayList.add(String.valueOf((string.charAt(i))));
       }
     }
-
-    if (string.contains("ый")) {
-      arrayList.remove(arrayList.size() - 1);
-    }
+    deleteY(arrayList);
     return String.join("", arrayList);
   }
-  public String translateToCyrillic (String string) {
 
+  private void deleteY(ArrayList<String> arrayList) {
+    Pattern pattern = Pattern.compile("(yy(\\p{Punct}|\\s))|(yy$)");
+    Matcher matcher = pattern.matcher(String.join("", arrayList));
+    int i = 0;
+    while (matcher.find()) {
+      arrayList.remove(matcher.start() - i);
+      i++;
+    }
+  }
+  public String translateToCyrillic (String string) {
     Iterator it = complexComb.entrySet().iterator();
     while (it.hasNext()) {
       Map.Entry<Character, String> pair = (Map.Entry)it.next();
@@ -98,14 +105,18 @@ public class Translator {
         string = string.replaceAll(pair.getValue(), String.valueOf(pair.getKey()));
       }
     }
-    for (int i = 0; i < string.length(); i++) {
-      if (string.charAt(i) == 'й' && string.charAt(i - 1) != 'и' && string.charAt(i + 1) == ' ') {
-        ArrayList<String>arrayList = new ArrayList<>(Arrays.asList(string.split("(?<=\\G.{1})")));
-        arrayList.add(i, "ы");
-        return String.join("", arrayList);
+    ArrayList<String>arrayList = new ArrayList<>(Arrays.asList(string.split("(?<=\\G.{1})")));
+    this.insert(arrayList);
+    return String.join("", arrayList);
+  }
+  private void insert (ArrayList<String> arrayList) {
+    Pattern pattern = Pattern.compile("(^и(й(\\p{Punct}|\\s)))|(.[^и]й$)");
+    for (int i = 1; i < arrayList.size() - 1; i++) {
+      Matcher matcher = pattern.matcher(arrayList.get(i - 1) + arrayList.get(i) + arrayList.get(i + 1));
+      if (matcher.matches()) {
+        arrayList.set(i + 1, "ый");
       }
     }
-    return string;
   }
 }
 
