@@ -1,16 +1,25 @@
 import java.util.HashMap;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
-public class Translator {
+/**
+ * Transliterates Cyrillic to Latin and vice versa.
+ * Contains 2 catalogs of Cyrillic-Latin alphabets.
+ * The first of them is full. The second contains only pairs, which consists of complex combinations in Latin.
+ * Contains different methods committing transliteration:
+ */
+public class Transliterator {
   private HashMap<Character, String> ruEng = new HashMap<Character, String>();
   private HashMap<Character, String> complexComb = new HashMap<Character, String>();
-  Translator() {
+
+  /**
+   * Fills the сatalogs with the Cyrillic-Latin alphabets.
+   * At first puts Upper Case pairs. After that through a cycle fills lower case pairs.
+   * Similarly for complexComb catalog.
+   */
+  Transliterator() {
     ruEng.put('А', "A");
     ruEng.put('Б', "B");
     ruEng.put('В', "V");
@@ -66,15 +75,30 @@ public class Translator {
     complexComb.putAll(temp);
 
   }
-  public String translateToLatin (String string) {
+
+  /**
+   * Transliterates Cyrillic words to Latin.
+   * After that corrects endings according to the transliterations rules
+   * by {@link Transliterator#correctLatinEndings(String)}
+   * @param string we are going to transliterate.
+   * @return transliterated string.
+   */
+  public String transliterateToLatin(String string) {
     for (int i = 0; i < string.length(); i++) {
       if (this.ruEng.containsKey(string.charAt(i))) {
         string = string.replaceAll(string.substring(i, i + 1), this.ruEng.get(string.charAt(i)));
       }
     }
-    return deleteY(string);
+    return this.correctLatinEndings(string);
   }
-  private String deleteY(String string) {
+
+  /**
+   * After after the character-by-character transliteration string can contains such combinations as "yy"
+   * at the end of words. According to the transliteration rules, method rewrites "yy" to "y".
+   * @param string
+   * @return
+   */
+  private String correctLatinEndings(String string) {
     Pattern pattern = Pattern.compile("(yy(\\p{Punct}|\\s))|(yy$)");
     Matcher matcher = pattern.matcher(string);
     int i = 0;
@@ -84,11 +108,20 @@ public class Translator {
     }
     return string;
   }
+
+  /**
+   * Transliterates Latin-written words to Cyrillic.
+   * First of all transliterates complex combinations of letters corresponding cyrillic letters.
+   * After that transliterates other letters.
+   * Then corrects endings according to the transliterations rules by
+   * {@link Transliterator#correctCyrillicEndings(String)}
+   * @param string we are going to transliterate.
+   * @return transliterated string.
+   */
   public String translateToCyrillic (String string) {
     Iterator it = complexComb.entrySet().iterator();
     while (it.hasNext()) {
       Map.Entry<Character, String> pair = (Map.Entry)it.next();
-      String str = pair.getValue();
       if (string.contains(pair.getValue())) {
         string = string.replaceAll(pair.getValue(), String.valueOf(pair.getKey()));
       }
@@ -96,23 +129,29 @@ public class Translator {
     it = ruEng.entrySet().iterator();
     while (it.hasNext()) {
       Map.Entry<Character, String> pair = (Map.Entry)it.next();
-      String str = pair.getValue();
       if (string.contains(pair.getValue())) {
         string = string.replaceAll(pair.getValue(), String.valueOf(pair.getKey()));
       }
     }
-    ArrayList<String>arrayList = new ArrayList<>(Arrays.asList(string.split("(?<=\\G.{1})")));
-    this.insert(arrayList);
-    return String.join("", arrayList);
+    return this.correctCyrillicEndings(string);
   }
-  private void insert (ArrayList<String> arrayList) {
-    Pattern pattern = Pattern.compile("(^и(й(\\p{Punct}|\\s)))|(.[^и]й$)");
-    for (int i = 1; i < arrayList.size() - 1; i++) {
-      Matcher matcher = pattern.matcher(arrayList.get(i - 1) + arrayList.get(i) + arrayList.get(i + 1));
-      if (matcher.matches()) {
-        arrayList.set(i + 1, "ый");
-      }
+
+  /**
+   * After the character-by-character transliteration string can contains wrong endings of words as
+   * "(some consonants character) + й"
+   * According to the transliteration rules, method rewrites "й" to "ый".
+   * @param string
+   * @return
+   */
+  private String correctCyrillicEndings(String string) {
+    Pattern pattern = Pattern.compile("([^и]й(\\p{Punct}|\\s))|([^и]й$)");
+    Matcher matcher = pattern.matcher(string);
+    int i = 0;
+    while (matcher.find()) {
+      string = string.substring(0, matcher.start() + i + 1) + "ы" + string.substring(matcher.start() + i + 1);
+      i++;
     }
+    return string;
   }
 }
 
