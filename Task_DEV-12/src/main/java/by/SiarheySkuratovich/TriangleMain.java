@@ -20,6 +20,7 @@ public class TriangleMain {
       Equilateral equilateralTriangle = new Equilateral();
       Isosceles isoscelesTriangle = new Isosceles();
       double[] sides = new double[3];
+      System.out.println("Print 3 Triangle sides through a space :");
       getting.readTriangleSides(sides);
       if (equilateralTriangle.checkForEquilateral(sides)) {
         System.out.println("Triangle is equilateral");

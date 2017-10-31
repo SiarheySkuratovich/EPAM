@@ -8,7 +8,7 @@ public class IsoscelesTest extends OutputTest{
   @Test
   public void checkForIsosceles() throws Exception {
     Isosceles isosceles = new Isosceles();
-    double[] sides = {0.1, 0.1, 0.3};
+    double[] sides = {0.1, 0.1, 0.19};
     boolean actual = isosceles.checkForIsosceles(sides);
     boolean expected = true;
     assertEquals(expected, actual);
