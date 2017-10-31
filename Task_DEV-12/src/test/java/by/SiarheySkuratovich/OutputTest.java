@@ -1,6 +1,4 @@
 package by.SiarheySkuratovich;
-
-import org.junit.After;
 import org.junit.Before;
 
 import java.io.*;
@@ -12,10 +10,5 @@ public abstract class OutputTest {
   @Before
   public void setUpStreams() {
     System.setOut(new PrintStream(output));
-  }
-
-  @After
-  public void cleanUpStreams() {
-    System.setOut(null);
   }
 }

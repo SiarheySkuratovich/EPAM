@@ -14,7 +14,7 @@ public class SideReading {
     Scanner in = new Scanner(System.in);
     System.out.println("Print 3 Triangle sides through a space :");
     String[] strings = in.nextLine().split("\\s");
-   for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 3; i++) {
      sides[i] = Double.parseDouble(strings[i]);
    }
   }
