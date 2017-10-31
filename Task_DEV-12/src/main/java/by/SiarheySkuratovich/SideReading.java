@@ -16,9 +16,9 @@ public class SideReading {
     for (int i = 0; i < 3; i++) {
      sides[i] = Double.parseDouble(strings[i]);
    }
-   if (!(sides[0] + sides[1] < sides[2] || sides[1] + sides[2] < sides[0] || sides[2] + sides[0] < sides[1])) {
-     System.out.println("The sum of  two of them should be less than the third number");
-      throw new IllegalArgumentException("The sum of  two of them should be less than the third number");
+   if (!(sides[0] + sides[1] > sides[2] || sides[1] + sides[2] > sides[0] || sides[2] + sides[0] > sides[1])) {
+     System.out.println("The sum of  two of them should be more than the third number");
+      throw new IllegalArgumentException("The sum of  two of them should be more than the third number");
    }
   }
 }

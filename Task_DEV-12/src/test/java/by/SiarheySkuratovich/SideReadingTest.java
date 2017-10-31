@@ -21,12 +21,12 @@ public class SideReadingTest extends OutputTest {
   public void checkForIllegalArgumentExceptionMessage() {
     try {
       double[] sides = new double[3];
-      ByteArrayInputStream input = new ByteArrayInputStream("2 3 5".getBytes());
+      ByteArrayInputStream input = new ByteArrayInputStream("2 3 6".getBytes());
       System.setIn(input);
       SideReading sideReading = new SideReading();
       sideReading.readTriangleSides(sides);
     } catch (IllegalArgumentException ex) {
-      assertEquals("The sum of  two of them should be less than the third number\n", output.toString());
+      assertEquals("The sum of  two of them should be more than the third number\n", output.toString());
     }
   }
 }
