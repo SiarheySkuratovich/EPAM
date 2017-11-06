@@ -1,41 +1,48 @@
 package Criteria;
 
-import Employees.*;
+import Employees.Group;
 
-import java.util.ArrayList;
+import java.util.*;
 
-/**
- * Created by siarhey on 03.11.17.
- */
-public class Productivity implements Criteria {
+public class Productivity implements Criteria{
 
-  int productivity;
+  private HashMap<String, Integer> team = new HashMap<String, Integer>();
 
-  public int count(int cost, int productivity) {
-    Junior junior = new Junior();
-    Middle middle = new Middle();
-    Senior senior = new Senior();
-    Lead lead = new Lead();
-    ArrayList<Employee> team = new ArrayList<Employee>();
-
-      ArrayList<Double> versions = new ArrayList<Double>();
-      versions.add((double)cost / junior.getSalary());
-      versions.add((double)cost / middle.getSalary());
-      versions.add((double)cost / senior.getSalary());
-      versions.add((double)cost / lead.getSalary());
-
-      double prod1 = versions.get(0) * junior.getProductivity();
-      double prod2 = versions.get(1) * middle.getProductivity();
-      double prod3 = versions.get(2) * senior.getProductivity();
-      double prod4 = versions.get(3) * lead.getProductivity();
-
-      System.out.println(prod1);
-      System.out.println(prod2);
-      System.out.println(prod3);
-      System.out.println(prod4);
-
-
-    return 0;
+  public HashMap<String, Integer> count(int money, int ExpectedProductivity, Group[] groups) {
+    int[] productivity = new int[4];
+    int iterator = 0;
+    final int JUNIOR_SALARY = 500;
+    while (money >= JUNIOR_SALARY) {
+      for (int i = 0; i < groups.length; i++) {
+        productivity[i] = money / groups[i].getSalary();
+        productivity[i] *= groups[i].getProductivity();
+        groups[i].setCommonProductivity(productivity[i]);
+      }
+      Arrays.sort(groups, new Comparator<Group>() {
+        public int compare(Group o1, Group o2) {
+          return Double.compare(o1.getCommonProductivity(), o2.getCommonProductivity());
+        }
+      });
+      for (Group n : groups) {
+        System.out.println(n.getName());
+        System.out.println(n.getCommonProductivity());
+      }
+      System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+      if (!team.containsKey(groups[groups.length - 1].getName())) {
+        iterator = 1;
+      } else {
+        iterator = team.get(groups[groups.length - 1].getName()) + 1;
+      }
+      System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+      System.out.println(iterator);
+      team.put(groups[groups.length - 1].getName(), iterator);
+      money -= groups[groups.length - 1].getSalary();
+      System.out.println(money);
+      System.out.println(team.size());
+      System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    }
+    return team;
   }
+
 
 }
