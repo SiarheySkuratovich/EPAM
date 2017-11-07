@@ -12,8 +12,8 @@ public class Main {
   public static void main(String[] args) {
 
     Group[] groups = new Group[4];
-    groups[0] = new Group("Juniors", 500, 2);
-    groups[1] = new Group("Middles", 700, 4);
+    groups[0] = new Group("Juniors", 500, 3);
+    groups[1] = new Group("Middles", 700, 5);
     groups[2] = new Group("Seniors", 1000, 8);
     groups[3] = new Group("Leads", 1200, 10);
     Productivity productivity = new Productivity();

@@ -16,6 +16,7 @@ public class Group {
     this.name = name;
     this.salary = salary;
     this.productivity = productivity;
+    quantity = 0;
   }
 
   public void setCommonProductivity(int commonProductivity) {
