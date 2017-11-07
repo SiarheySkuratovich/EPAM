@@ -11,12 +11,14 @@ public class Group {
   private final int productivity;
   private int commonProductivity;
   private int quantity;
+  private final double coefficient;
 
   public Group(String name, int salary, int productivity) {
     this.name = name;
     this.salary = salary;
     this.productivity = productivity;
     quantity = 0;
+    coefficient = productivity / salary;
   }
 
   public void setCommonProductivity(int commonProductivity) {
@@ -48,4 +50,7 @@ public class Group {
     return quantity;
   }
 
+  public double getCoefficient() {
+    return coefficient;
+  }
 }

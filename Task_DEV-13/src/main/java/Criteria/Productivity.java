@@ -4,11 +4,11 @@ import Employees.Group;
 
 import java.util.*;
 
-public class Productivity implements Criteria{
+public class Productivity {
 
   private HashMap<String, Integer> team = new HashMap<String, Integer>();
 
-  public HashMap<String, Integer> count(int money, int ExpectedProductivity, Group[] groups) {
+  public HashMap<String, Integer> count(int money, int expectedProductivity, Group[] groups) {
     int[] productivity = new int[4];
     final int JUNIOR_SALARY = 500;
     while (money >= JUNIOR_SALARY) {

@@ -7,11 +7,11 @@ import java.util.HashMap;
 /**
  * Created by siarhey on 03.11.17.
  */
-public class NonJunior implements Criteria {
+public class NonJunior {
 
   int quantity;
 
-  public HashMap<String, Integer> count(int money, int ExpectedProductivity, Group[] groups) {
+  public HashMap<String, Integer> count(int money, int expectedProductivity, Group[] groups) {
     return new HashMap<String, Integer>();
   }
 }
