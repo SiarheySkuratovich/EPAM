@@ -22,8 +22,11 @@ public class Productivity {
    * @return selected team of Devs.
    */
   public HashMap<String, Integer> count(int money, ArrayList<Group> groupArrayList) {
+    final int JUNIOR_SALARY = groupArrayList.get(0).getSalary();
+    if(money < JUNIOR_SALARY) {
+      throw new IllegalArgumentException("You haven't got enough money!");
+    }
     int[] productivity = new int[4];
-    final int JUNIOR_SALARY = 500;
     while (money >= JUNIOR_SALARY) {
       for (int i = 0; i < groupArrayList.size(); i++) {
         productivity[i] = money / groupArrayList.get(i).getSalary();
