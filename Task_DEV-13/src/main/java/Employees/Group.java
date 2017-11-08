@@ -10,6 +10,7 @@ public class Group {
   private final int salary;
   private final int productivity;
   private int commonProductivity;
+  private int commonCost;
   private int quantity;
   private final double coefficient;
 
@@ -25,6 +26,9 @@ public class Group {
     this.commonProductivity = commonProductivity;
   }
 
+  public void setCommonCost(int commonCost) {
+    this.commonCost = commonCost;
+  }
 
   public String getName() {
     return name;
@@ -52,5 +56,9 @@ public class Group {
 
   public double getCoefficient() {
     return coefficient;
+  }
+
+  public int getCommonCost() {
+    return commonCost;
   }
 }
