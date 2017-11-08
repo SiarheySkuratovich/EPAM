@@ -20,53 +20,36 @@ public class Cost {
         commonCost[i] *= groupArrayList.get(i).getSalary();
         groupArrayList.get(i).setCommonCost(commonCost[i]);
       }
-      for (Group n : groupArrayList) {
-        System.out.println(n.getName());
-        System.out.println(n.getCommonCost());
-      }
-      System.out.println("____________");
+      deleteAllZeros(groupArrayList);
       Collections.sort(groupArrayList, new Comparator<Group>() {
         public int compare(Group o1, Group o2) {
           return Double.compare(o1.getCommonCost(), o2.getCommonCost());
         }
       });
-
-      int size = groupArrayList.size();
-      for (int i = 0; i < size; i++) {
-        if (groupArrayList.get(i).getCommonCost() == 0) {
-          groupArrayList.remove(i);
-          i--;
-          size--;
-        }
-      }
-      System.out.println("SSSSSSSSSSIIIIIIIIZZZZZEEEE:--" + groupArrayList.size());
-      for (Group n : groupArrayList) {
-        System.out.println(n.getName());
-        System.out.println(n.getCommonCost());
-      }
-      System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-      int minIndex = 0;
-
-      ///////////////////////////////////////////////////////////////
-      //нужно удалить все нули в начале
-              ///////////////////////////////////////////////////////
-      String nameOfMin = groupArrayList.get(minIndex).getName();
+      final int INDEX_OF_MIN = 0;
+      String nameOfMin = groupArrayList.get(INDEX_OF_MIN).getName();
       if (!team.containsKey(nameOfMin)) {
-        groupArrayList.get(minIndex).setQuantity(1);
+        groupArrayList.get(INDEX_OF_MIN).setQuantity(1);
 
       } else {
         int quantity = team.get(nameOfMin);
-        groupArrayList.get(minIndex).setQuantity(quantity + 1);
+        groupArrayList.get(INDEX_OF_MIN).setQuantity(quantity + 1);
 
       }
-      team.put(nameOfMin, groupArrayList.get(minIndex).getQuantity());
-      expectedProductivity -= groupArrayList.get(minIndex).getProductivity();
+      team.put(nameOfMin, groupArrayList.get(INDEX_OF_MIN).getQuantity());
+      expectedProductivity -= groupArrayList.get(INDEX_OF_MIN).getProductivity();
     }
     return team;
   }
 
-  private ArrayList<Group> deleteAllZeros(ArrayList<Group> groupArrayList) {
-
-    return groupArrayList;
+  private void deleteAllZeros(ArrayList<Group> groupArrayList) {
+    int size = groupArrayList.size();
+    for (int i = 0; i < size; i++) {
+      if (groupArrayList.get(i).getCommonCost() == 0) {
+        groupArrayList.remove(i);
+        i--;
+        size--;
+      }
+    }
   }
 }

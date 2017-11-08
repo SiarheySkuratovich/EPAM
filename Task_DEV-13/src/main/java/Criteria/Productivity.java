@@ -26,11 +26,9 @@ public class Productivity {
       String nameOfMax = groups[maxIndex].getName();
       if (!team.containsKey(nameOfMax)) {
         groups[maxIndex].setQuantity(1);
-
       } else {
         int quantity = team.get(nameOfMax);
         groups[maxIndex].setQuantity(quantity + 1);
-
       }
       team.put(nameOfMax, groups[maxIndex].getQuantity());
       money -= groups[maxIndex].getSalary();
