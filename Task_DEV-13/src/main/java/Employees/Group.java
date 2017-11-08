@@ -1,25 +1,21 @@
 package Employees;
 
-import java.util.Comparator;
-
 /**
- * Created by siarhey on 02.11.17.
+ * Group of equal devs with te following properties.
  */
 public class Group {
   private final String name;
   private final int salary;
+  private int commonCost;
   private final int productivity;
   private int commonProductivity;
-  private int commonCost;
   private int quantity;
-  private final double coefficient;
 
   public Group(String name, int salary, int productivity) {
     this.name = name;
     this.salary = salary;
     this.productivity = productivity;
     quantity = 0;
-    coefficient = productivity / salary;
   }
 
   public void setCommonProductivity(int commonProductivity) {
@@ -38,7 +34,7 @@ public class Group {
     return salary;
   }
 
-  public double getProductivity() {
+  public int getProductivity() {
     return productivity;
   }
 
@@ -52,10 +48,6 @@ public class Group {
 
   public int getQuantity() {
     return quantity;
-  }
-
-  public double getCoefficient() {
-    return coefficient;
   }
 
   public int getCommonCost() {

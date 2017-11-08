@@ -5,18 +5,28 @@ import Employees.Group;
 import java.util.*;
 
 /**
- * Created by siarhey on 03.11.17.
+ * Criterion2: The minimum cost for a fixed productivity.
  */
 public class Cost {
 
   private HashMap<String, Integer> team = new HashMap<String, Integer>();
 
-  public HashMap<String, Integer> count(int money, int expectedProductivity, ArrayList<Group> groupArrayList) {
-    int[] commonCost = new int[4];
-    final int JUNIOR_PRODUCTIVITY = 3;
-    while (expectedProductivity >= JUNIOR_PRODUCTIVITY) {
+  /**
+   * Selects team in the following way:
+   * Each iteration selects the most profitable group of equal Devs and adds one of this group into team.
+   * After that the productivity of this dev is taken away from the expected productivity.
+   * After each iteration such group may change.
+   * So this method lets to choose the most profitable way to go after each iteration.
+   * @param expectedProductivity expectedProductivity of customer.
+   * @param groupArrayList available developers.
+   * @return selected team of Devs.
+   */
+  public HashMap<String, Integer> count(int expectedProductivity, ArrayList<Group> groupArrayList) {
+    int[] commonCost = new int[groupArrayList.size()];
+    final int MIN_PRODUCTIVITY = groupArrayList.get(0).getProductivity();
+    while (expectedProductivity >= MIN_PRODUCTIVITY) {
       for (int i = 0; i < groupArrayList.size(); i++) {
-        commonCost[i] = (int) (expectedProductivity / groupArrayList.get(i).getProductivity());
+        commonCost[i] = (expectedProductivity / groupArrayList.get(i).getProductivity());
         commonCost[i] *= groupArrayList.get(i).getSalary();
         groupArrayList.get(i).setCommonCost(commonCost[i]);
       }
