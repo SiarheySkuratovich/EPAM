@@ -1,4 +1,5 @@
 
+
 /**
  * Validates some object path of the file system in Windows OS.
  */
@@ -13,25 +14,12 @@ public class Main {
   public static void main(String[] args) {
     PathValidator pathValidator = new PathValidator();
     String path = String.join(" ", args);
-    if (pathValidator.isExtendedLengthPath(path)) {
-      if (!pathValidator.isValidExtendedLengthPath(path))
-      {
-        System.out.println("Invalid extended-length path!");
-        return;
-      }
-      path = pathValidator.deletePrefix(path);
+
+    if (pathValidator.containsForbiddenCharactersIn(path)) {
+      System.out.println("Invalid path! The folder names contains illegal characters!");
+      return;
     }
-    path = pathValidator.replaceAllFrontSlashes(path);
-    if(pathValidator.containsSpecifierIn(path)) {
-      if (!pathValidator.isValidRelativePath(path)) {
-        System.out.println("Invalid relative path!");
-        return;
-      }
-    }
-    path = pathValidator.deleteSpecifiers(path);
-    if (pathValidator.containsDiskDesignator(path)) {
-      path = pathValidator.deleteDiskDesignator(path);
-    }
+
     if (!pathValidator.checkForValidFolderEndings(path)) {
       System.out.println("Invalid path! The folder names mustn't ends with space or dot.");
       return;
@@ -40,10 +28,7 @@ public class Main {
       System.out.println("Invalid path! The folder names mustn't contains slashes.");
       return;
     }
-    if (pathValidator.containsReservedCharactersIn(path)) {
-      System.out.println("Invalid path! The folder names contains illegal characters!");
-      return;
-    }
+
     if (pathValidator.сontainsReservedNamesIn(path)) {
       System.out.println("Invalid path! The folders mustn't called reserved names");
       return;

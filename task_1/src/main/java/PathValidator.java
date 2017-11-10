@@ -59,59 +59,58 @@ public class PathValidator {
   }
 
   /**
-   * Determines whether relative path is valid.
-   *
+   * Determines whether path is relative.
+   * Returns true if it is and false if it's not.
    * @param path for check.
    */
-  public boolean isValidRelativePath(String path) {
-    int i = path.indexOf("..\\");
-    if (i < 2) {
-      return false;
+  public boolean isRelativePath(String path) {
+    int startIndex;
+    if(containsDiskDesignator(path)) {
+      startIndex = 2;
+    } else {
+      startIndex = 0;
     }
-    for (i = path.indexOf("..\\"); i < path.length() - 2; i++) {
-      if (path.substring(i, i + 3).equals("..\\") && !path.substring(i - 3, i).equals("..\\")) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-
-  public boolean containsSpecifierIn(String path) {
-    String[] specifiers = {"..\\", ".\\"};
-    for (String n: specifiers) {
-      if(path.contains(n)) {
-        return true;
-      }
+    if (path.indexOf("..\\") == startIndex || path.indexOf(".\\") == startIndex) {
+      return true;
     }
     return false;
   }
-  public String deleteSpecifiers(String path) {
-    String[] specifiers = {"..\\", ".\\"};
-    StringBuffer pathBuffer = new StringBuffer(path);
-    for (int i = 0; i < pathBuffer.length() - 3; i++) {
-      for (String n: specifiers) {
-        if(pathBuffer.substring(i, i + 3).equals(n)) {
-          pathBuffer.delete(i, i + 2);
-          i--;
-          break;
-        }
+
+
+  boolean containsForbiddenCharactersIn(String path) {
+    int i = 0;
+    if (isExtendedLengthPath(path))
+    {
+      if(isValidExtendedLengthPath(path)) {
+        path = replaceAllFrontSlashes(path);
+        i = 5;
+      } else {
+        return false;
       }
     }
-    return pathBuffer.toString();
-  }
-
-  boolean containsReservedCharactersIn(String path) {
-    for (int i = 0; i < forbiddenCharacters.length; i++) {
+    if(containsDiskDesignator(path)) {
+      i += 2;
+      if (isRelativePath(path)) {
+        i += 3;
+      }
+    }
+    while (i < forbiddenCharacters.length) {
       if (path.contains(forbiddenCharacters[i])) {
         return true;
       }
+      i++;
     }
     return false;
   }
 
   public boolean containsDiskDesignator(String path) {
-      return isLatinSymbol(path.charAt(0)) && path.charAt(1) == ':';
+    int startIndex;
+    if (isExtendedLengthPath(path)) {
+      startIndex = 5;
+    } else if (isRelativePath(path)){
+      startIndex = 0;
+    }
+      return isLatinSymbol(path.charAt(startIndex)) && path.charAt(startIndex + 1) == ':';
     }
 
   public boolean isLatinSymbol(char symbol) {
@@ -137,7 +136,9 @@ public class PathValidator {
 
   public boolean isExtendedLengthPath(String path) {
     if (path.length() > 5) {
-      return path.substring(0, 4).equals("\\\\?\\");
+      if (path.substring(0, 4).equals("\\\\?\\")) {
+        return true;
+      }
     }
     return false;
   }
@@ -145,13 +146,6 @@ public class PathValidator {
     return !path.contains("/");
   }
 
-  public String deletePrefix(String path) {
-    return path.substring(4, path.length());
-  }
-
-  public String deleteDiskDesignator(String path) {
-    return path.substring(3, path.length());
-  }
   public String replaceAllFrontSlashes(String path) {
     StringBuffer buffer = new StringBuffer(path);
     for (int i = 0; i < path.length(); i++) {
@@ -160,5 +154,20 @@ public class PathValidator {
       }
     }
     return buffer.toString();
+  }
+
+  private int setStartIndex(String path) {
+    int startIndex = 0;
+    if (isExtendedLengthPath(path))
+    {
+      startIndex = 5;
+    } else if (isRelativePath(path)) {
+      startIndex += 3;
+    }
+    if(containsDiskDesignator(path)) {
+      startIndex += 2;
+
+    }
+    return startIndex;
   }
 }
