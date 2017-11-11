@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by siarhey on 09.11.17.
@@ -54,9 +56,9 @@ public class PathValidation {
   }
   public String deleteSpecifiers(String path) {
     StringBuffer pathBuffer = new StringBuffer(path);
-    for (int i = 0; i < pathBuffer.length() - 2; i++) {
+    for (int i = 0; i < pathBuffer.length() - 3; i++) {
       if (pathBuffer.substring(i, i + 3).equals("..\\") || pathBuffer.substring(i, i + 3).equals("../")) {
-        pathBuffer.delete(i, i + 3);
+        pathBuffer.delete(i, i + 2);
         i--;
       }
     }
@@ -65,16 +67,14 @@ public class PathValidation {
 
   boolean containsReservedCharactersIn(String path) {
     for (int i = 0; i < reservedCharacters.length; i++) {
-      System.out.println(reservedCharacters);
-      if (Arrays.asList(path).contains(reservedCharacters[i])) {
-        System.out.println(" я зашол!!");
+      if (path.contains(reservedCharacters[i])) {
         return true;
       }
     }
     return false;
   }
 
-  public boolean isDiskDesignator(String path) {
+  public boolean containsDiskDesignator(String path) {
       return isLatinSymbol(path.charAt(0)) && path.charAt(1) == ':';
     }
 
@@ -83,5 +83,34 @@ public class PathValidation {
       return true;
     }
     return false;
+  }
+
+  public boolean areValidNameLengthsIn(String path) {
+    int folderNameLength = 0;
+    for(int i = 0; i < path.length(); i++) {
+      folderNameLength++;
+      if(path.charAt(i) == '\\' || path.charAt(i) == '/' || i == path.length() - 1) {
+        if(folderNameLength >=255) {
+          return false;
+        }
+        folderNameLength = 0;
+      }
+    }
+    return true;
+  }
+
+  public boolean isExtendedLengthPath(String path) {
+    return path.substring(0, 4).equals("\\\\?\\") || path.substring(0, 4).equals("//?/");
+  }
+  public boolean isValidExtendedLengthPath(String path) {
+    return !path.contains("/");
+  }
+
+  public String deletePrefix(String path) {
+    return path.substring(4, path.length());
+  }
+
+  public String deleteDiskDesignator(String path) {
+    return path.substring(3, path.length());
   }
 }

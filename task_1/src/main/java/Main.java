@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 /**
  * Created by siarhey on 09.11.17.
  */
@@ -13,8 +11,16 @@ public class Main {
         return;
       }
     }
-    if (pathValidation.isDiskDesignator(fullString)) {
-      fullString = fullString.substring(2, fullString.length());
+    if (pathValidation.isExtendedLengthPath(fullString)) {
+      if (!pathValidation.isValidExtendedLengthPath(fullString))
+      {
+        System.out.println("Invalid extended-length path!");
+        return;
+      }
+      fullString = pathValidation.deletePrefix(fullString);
+    }
+    if (pathValidation.containsDiskDesignator(fullString)) {
+      fullString = pathValidation.deleteDiskDesignator(fullString);
     }
     fullString = pathValidation.deleteSpecifiers(fullString);
     if (!pathValidation.checkForValidFolderEndings(fullString)) {
@@ -23,10 +29,8 @@ public class Main {
     }
     if (pathValidation.containsRepeatingSlashesIn(fullString)) {
       System.out.println("Invalid path! The folder names mustn't contains slashes.");
+      return;
     }
-
-    System.out.println(fullString);
-
     if (pathValidation.containsReservedCharactersIn(fullString)) {
       System.out.println("Invalid path! The folder names contains illegal characters!");
       return;
@@ -35,6 +39,11 @@ public class Main {
       System.out.println("Invalid path! The folders mustn't called reserved names");
       return;
     }
+    if(!pathValidation.areValidNameLengthsIn(fullString)) {
+      System.out.println("Invalid path! Folder name lengths mustn't be more than 255 characters.");
+      return;
+    }
+
     System.out.println("Path is valid");
   }
 }
