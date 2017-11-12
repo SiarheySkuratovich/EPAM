@@ -11,43 +11,43 @@ public class Main {
    * @param args separated by spaces path.
    */
   public static void main(String[] args) {
-    PathValidation pathValidation = new PathValidation();
+    PathValidator pathValidator = new PathValidator();
     String path = String.join(" ", args);
-    if(pathValidation.containsSpecifierIn(path)) {
-      if (!pathValidation.isValidRelativePath(path)) {
+    if(pathValidator.containsSpecifierIn(path)) {
+      if (!pathValidator.isValidRelativePath(path)) {
         System.out.println("Invalid relative path!");
         return;
       }
     }
-    path = pathValidation.deleteSpecifiers(path);
-    if (pathValidation.isExtendedLengthPath(path)) {
-      if (!pathValidation.isValidExtendedLengthPath(path))
+    path = pathValidator.deleteSpecifiers(path);
+    if (pathValidator.isExtendedLengthPath(path)) {
+      if (!pathValidator.isValidExtendedLengthPath(path))
       {
         System.out.println("Invalid extended-length path!");
         return;
       }
-      path = pathValidation.deletePrefix(path);
+      path = pathValidator.deletePrefix(path);
     }
-    if (pathValidation.containsDiskDesignator(path)) {
-      path = pathValidation.deleteDiskDesignator(path);
+    if (pathValidator.containsDiskDesignator(path)) {
+      path = pathValidator.deleteDiskDesignator(path);
     }
-    if (!pathValidation.checkForValidFolderEndings(path)) {
+    if (!pathValidator.checkForValidFolderEndings(path)) {
       System.out.println("Invalid path! The folder names mustn't ends with space or dot.");
       return;
     }
-    if (pathValidation.containsRepeatingSlashesIn(path)) {
+    if (pathValidator.containsRepeatingSlashesIn(path)) {
       System.out.println("Invalid path! The folder names mustn't contains slashes.");
       return;
     }
-    if (pathValidation.containsReservedCharactersIn(path)) {
+    if (pathValidator.containsReservedCharactersIn(path)) {
       System.out.println("Invalid path! The folder names contains illegal characters!");
       return;
     }
-    if (pathValidation.сontainsReservedNamesIn(path)) {
+    if (pathValidator.сontainsReservedNamesIn(path)) {
       System.out.println("Invalid path! The folders mustn't called reserved names");
       return;
     }
-    if(!pathValidation.areValidNameLengthsIn(path)) {
+    if(!pathValidator.areValidNameLengthsIn(path)) {
       System.out.println("Invalid path! Folder name lengths mustn't be more than 255 characters.");
       return;
     }

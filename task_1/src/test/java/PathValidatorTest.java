@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 /**
  * Created by siarhey on 10.11.17.
  */
-public class PathValidationTest {
+public class PathValidatorTest {
   @org.junit.Test
   public void checkForValidFolderEndings() throws Exception {
   }
@@ -39,8 +39,8 @@ public class PathValidationTest {
   }
   @Test
   public void isLatinSymbol() throws Exception{
-    PathValidation pathValidation = new PathValidation();
-    boolean actual = pathValidation.isLatinSymbol('#');
+    PathValidator pathValidator = new PathValidator();
+    boolean actual = pathValidator.isLatinSymbol('#');
     boolean expected = false;
     assertEquals(expected, actual);
   }
