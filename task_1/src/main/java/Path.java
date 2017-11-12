@@ -18,6 +18,10 @@ public class Path {
     this.path = path;
   }
 
+  public String getPath() {
+    return path;
+  }
+
   /**
    * Checks whether correct folder Names, namely endings.
    * Returns true if correct and false if it's not.
@@ -37,7 +41,7 @@ public class Path {
    * Returns true if contains and false if doesn't.
    * @return
    */
-  public boolean сontainsReservedNamesIn() {
+  public boolean сontainsReservedNames() {
     for (String n : reservedNames) {
       if (path.contains(n)) {
         return true;
@@ -52,19 +56,13 @@ public class Path {
    * if path is extended length, skips prefix.
    * Return true if contains and false if doesn't.
    */
-  public boolean containsRepeatingSlashesIn() {
+  public boolean containsRepeatingSlashes() {
     replaceAllFrontSlashes();
     int i = 0;
     if (isExtendedLengthPath()) {
       i = 5;
     }
-    while (i < path.length() - 2) {
-      if ((path.charAt(i) == '\\'  && path.charAt(i + 2) == '\\')) {
-        return true;
-      }
-      i++;
-    }
-    return false;
+    return path.substring(i, path.length()).contains("\\\\");
   }
 
   /**
@@ -73,7 +71,7 @@ public class Path {
    * Checking is carried out with received start index gotten by {@link Path#setStartIndex()}
    * Returns true if path contains forbidden characters and false if doesn't.
    */
-  public boolean containsForbiddenCharactersIn() {;
+  public boolean containsForbiddenCharacters() {;
     for (int i = setStartIndex(); i < path.length(); i++) {
       for (char n : forbiddenCharacters) {
         if (path.charAt(i) == n) {
@@ -89,7 +87,7 @@ public class Path {
    * Allowable value for name length is about 255 characters.
    * Returns true if lengths ara acceptable and false if is's not.
    */
-  public boolean areValidNameLengthsIn() {
+  public boolean isPathWithValidNameLengths() {
     int folderNameLength = 0;
     for(int i = 0; i < path.length(); i++) {
       folderNameLength++;
@@ -141,12 +139,25 @@ public class Path {
   }
 
   /**
+   * Replaces all forward slashes to backslashes.
+   */
+  public void replaceAllFrontSlashes() {
+    StringBuffer buffer = new StringBuffer(path);
+    for (int i = 0; i < path.length(); i++) {
+      if (path.charAt(i) == '/') {
+        buffer.replace(i, i + 1, "\\");
+      }
+    }
+    path = buffer.toString();
+  }
+
+  /**
    * Checks whether path contains specifier current folder specifier.
    * Returns true if contains and false if doesn't.
    */
   private boolean containsCurrentFolderSpecifier() {
     replaceAllFrontSlashes();
-    return path.contains(".\\");
+    return (path.contains(".\\") && path.charAt(path.indexOf(".\\") - 1) != '.');
   }
 
   /**
@@ -169,7 +180,7 @@ public class Path {
     replaceAllFrontSlashes();
     int startIndex;
     if (isExtendedLengthPath()) {
-      startIndex = 5;
+      startIndex = 4;
     } else {
       startIndex = 0;
     }
@@ -190,19 +201,6 @@ public class Path {
   }
 
   /**
-   * Replaces all forward slashes to backslashes.
-   */
-  private void replaceAllFrontSlashes() {
-    StringBuffer buffer = new StringBuffer(path);
-    for (int i = 0; i < path.length(); i++) {
-      if (path.charAt(i) == '/') {
-        buffer.replace(i, i + 1, "\\");
-      }
-    }
-    path = buffer.toString();
-  }
-
-  /**
    * Sets start index for tests.
    * Method helps avoid to determine specifiers and prefixes as illegal characters.
    * If such specifiers are located in unacceptable places method skips them
@@ -219,20 +217,20 @@ public class Path {
     if (isExtendedLengthPath())
     {
       if(isValidExtendedLengthPath()) {
-        startIndex = 5;
+        startIndex = 4;
       } else {
         startIndex = 0;
       }
-    }
-    if (containsCurrentFolderSpecifier()) {
-      startIndex += 2;
-    } else if (containsParentFolderSpecifier()) {
-      startIndex += countNesting();
+    } else {
+      if (containsCurrentFolderSpecifier()) {
+        startIndex += 2;
+      } else if (containsParentFolderSpecifier()) {
+        startIndex += countNesting() * 3;
+      }
     }
     if(containsDiskDesignator()) {
       startIndex += 2;
     }
-    System.out.println(startIndex);
     return startIndex;
   }
 }

@@ -12,7 +12,7 @@ public class Main {
    */
   public static void main(String[] args) {
     Path path = new Path(String.join(" ", args));
-    if (path.containsForbiddenCharactersIn()) {
+    if (path.containsForbiddenCharacters()) {
       System.out.println("Invalid path!");
       return;
     }
@@ -20,16 +20,17 @@ public class Main {
       System.out.println("Invalid path! The folder names mustn't ends with space or dot.");
       return;
     }
-    if (path.containsRepeatingSlashesIn()) {
+
+    if (path.containsRepeatingSlashes()) {
       System.out.println("Invalid path! The folder names mustn't contains slashes.");
       return;
     }
 
-    if (path.сontainsReservedNamesIn()) {
+    if (path.сontainsReservedNames()) {
       System.out.println("Invalid path! The folders mustn't called reserved names");
       return;
     }
-    if(!path.areValidNameLengthsIn()) {
+    if(!path.isPathWithValidNameLengths()) {
       System.out.println("Invalid path! Folder name lengths mustn't be more than 255 characters.");
       return;
     }
