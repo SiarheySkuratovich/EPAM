@@ -21,7 +21,7 @@ public class PathValidator {
    */
   public boolean checkForValidFolderEndings(String path) {
     for (int i = 0; i < path.length() - 1; i++) {
-      if((path.charAt(i) == ' ' || path.charAt(i) == '.') && (path.charAt(i + 1) == '\\' || path.charAt(i + 1) == '/')) {
+      if((path.charAt(i) == ' ' || path.charAt(i) == '.') && path.charAt(i + 1) == '\\') {
         return false;
       }
     }
@@ -51,7 +51,7 @@ public class PathValidator {
    */
   public boolean containsRepeatingSlashesIn(String path) {
     for (int i = 0; i < path.length() - 2; i++) {
-      if ((path.charAt(i) == '\\'  && path.charAt(i + 2) == '\\') || (path.charAt(i) == '/'  && path.charAt(i + 2) == '/')) {
+      if ((path.charAt(i) == '\\'  && path.charAt(i + 2) == '\\')) {
         return true;
       }
     }
@@ -69,9 +69,7 @@ public class PathValidator {
       return false;
     }
     for (i = path.indexOf("..\\"); i < path.length() - 2; i++) {
-
-      if ((path.substring(i, i + 3).equals("..\\") && !path.substring(i - 3, i).equals("..\\")) ||
-              (path.substring(i, i + 3).equals("../") && !path.substring(i - 3, i).equals("../"))) {
+      if (path.substring(i, i + 3).equals("..\\") && !path.substring(i - 3, i).equals("..\\")) {
         return false;
       }
     }
@@ -80,7 +78,7 @@ public class PathValidator {
 
 
   public boolean containsSpecifierIn(String path) {
-    String[] specifiers = {"..\\", "../", ".\\", "./"};
+    String[] specifiers = {"..\\", ".\\"};
     for (String n: specifiers) {
       if(path.contains(n)) {
         return true;
@@ -89,7 +87,7 @@ public class PathValidator {
     return false;
   }
   public String deleteSpecifiers(String path) {
-    String[] specifiers = {"..\\", "../", ".\\", "./"};
+    String[] specifiers = {"..\\", ".\\"};
     StringBuffer pathBuffer = new StringBuffer(path);
     for (int i = 0; i < pathBuffer.length() - 3; i++) {
       for (String n: specifiers) {
@@ -127,7 +125,7 @@ public class PathValidator {
     int folderNameLength = 0;
     for(int i = 0; i < path.length(); i++) {
       folderNameLength++;
-      if(path.charAt(i) == '\\' || path.charAt(i) == '/' || i == path.length() - 1) {
+      if(path.charAt(i) == '\\' || i == path.length() - 1) {
         if(folderNameLength >=255) {
           return false;
         }
@@ -139,7 +137,7 @@ public class PathValidator {
 
   public boolean isExtendedLengthPath(String path) {
     if (path.length() > 5) {
-      return path.substring(0, 4).equals("\\\\?\\") || path.substring(0, 4).equals("//?/");
+      return path.substring(0, 4).equals("\\\\?\\");
     }
     return false;
   }
@@ -153,5 +151,14 @@ public class PathValidator {
 
   public String deleteDiskDesignator(String path) {
     return path.substring(3, path.length());
+  }
+  public String replaceAllFrontSlashes(String path) {
+    StringBuffer buffer = new StringBuffer(path);
+    for (int i = 0; i < path.length(); i++) {
+      if (path.charAt(i) == '/') {
+        buffer.replace(i, i + 1, "\\");
+      }
+    }
+    return buffer.toString();
   }
 }

@@ -13,13 +13,6 @@ public class Main {
   public static void main(String[] args) {
     PathValidator pathValidator = new PathValidator();
     String path = String.join(" ", args);
-    if(pathValidator.containsSpecifierIn(path)) {
-      if (!pathValidator.isValidRelativePath(path)) {
-        System.out.println("Invalid relative path!");
-        return;
-      }
-    }
-    path = pathValidator.deleteSpecifiers(path);
     if (pathValidator.isExtendedLengthPath(path)) {
       if (!pathValidator.isValidExtendedLengthPath(path))
       {
@@ -28,6 +21,14 @@ public class Main {
       }
       path = pathValidator.deletePrefix(path);
     }
+    path = pathValidator.replaceAllFrontSlashes(path);
+    if(pathValidator.containsSpecifierIn(path)) {
+      if (!pathValidator.isValidRelativePath(path)) {
+        System.out.println("Invalid relative path!");
+        return;
+      }
+    }
+    path = pathValidator.deleteSpecifiers(path);
     if (pathValidator.containsDiskDesignator(path)) {
       path = pathValidator.deleteDiskDesignator(path);
     }
