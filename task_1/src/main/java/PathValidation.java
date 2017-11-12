@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
 
 /**
  * Created by siarhey on 09.11.17.
@@ -52,14 +50,24 @@ public class PathValidation {
     return true;
   }
   public boolean containsSpecifierIn(String path) {
-    return path.contains("..\\") || path.contains("../");
+    String[] specifiers = {"..\\", "../", ".\\", "./"};
+    for (String n: specifiers) {
+      if(path.contains(n)) {
+        return true;
+      }
+    }
+    return false;
   }
   public String deleteSpecifiers(String path) {
+    String[] specifiers = {"..\\", "../", ".\\", "./"};
     StringBuffer pathBuffer = new StringBuffer(path);
     for (int i = 0; i < pathBuffer.length() - 3; i++) {
-      if (pathBuffer.substring(i, i + 3).equals("..\\") || pathBuffer.substring(i, i + 3).equals("../")) {
-        pathBuffer.delete(i, i + 2);
-        i--;
+      for (String n: specifiers) {
+        if(pathBuffer.substring(i, i + 3).equals(n)) {
+          pathBuffer.delete(i, i + 2);
+          i--;
+          break;
+        }
       }
     }
     return pathBuffer.toString();
