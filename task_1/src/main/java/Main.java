@@ -12,28 +12,26 @@ public class Main {
    * @param args separated by spaces path.
    */
   public static void main(String[] args) {
-    PathValidator pathValidator = new PathValidator();
-    String path = String.join(" ", args);
-
-    if (pathValidator.containsForbiddenCharactersIn(path)) {
-      System.out.println("Invalid path! The folder names contains illegal characters!");
+    Path path = new Path(String.join(" ", args));
+    if (path.containsForbiddenCharactersIn()) {
+      System.out.println("Invalid path!");
       return;
     }
 
-    if (!pathValidator.checkForValidFolderEndings(path)) {
+    if (!path.checkForValidFolderEndings()) {
       System.out.println("Invalid path! The folder names mustn't ends with space or dot.");
       return;
     }
-    if (pathValidator.containsRepeatingSlashesIn(path)) {
+    if (path.containsRepeatingSlashesIn()) {
       System.out.println("Invalid path! The folder names mustn't contains slashes.");
       return;
     }
 
-    if (pathValidator.сontainsReservedNamesIn(path)) {
+    if (path.сontainsReservedNamesIn()) {
       System.out.println("Invalid path! The folders mustn't called reserved names");
       return;
     }
-    if(!pathValidator.areValidNameLengthsIn(path)) {
+    if(!path.areValidNameLengthsIn()) {
       System.out.println("Invalid path! Folder name lengths mustn't be more than 255 characters.");
       return;
     }
