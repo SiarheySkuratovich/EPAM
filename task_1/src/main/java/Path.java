@@ -1,5 +1,4 @@
 
-
 /**
  * Makes tests on different features of path in Windows OS.
  */
@@ -35,7 +34,7 @@ public class Path {
 
   /**
    * Checks for reserved names in specified path.
-   * Returns true if contains and false if it's not.
+   * Returns true if contains and false if doesn't.
    * @return
    */
   public boolean сontainsReservedNamesIn() {
@@ -50,7 +49,8 @@ public class Path {
   /**
    * Check for slashes in folder names.
    * Checks only ending because slashes within names not possible to check.
-   * Return true if contains and false if it's not.
+   * if path is extended length, skips prefix.
+   * Return true if contains and false if doesn't.
    */
   public boolean containsRepeatingSlashesIn() {
     replaceAllFrontSlashes();
@@ -67,10 +67,16 @@ public class Path {
     return false;
   }
 
-  public boolean containsForbiddenCharactersIn() {
+  /**
+   * Checks for forbidden characters in path.
+   * Skips different specifiers at the beginning of path.
+   * Checking is carried out with received start index gotten by {@link Path#setStartIndex()}
+   * Returns true if path contains forbidden characters and false if doesn't.
+   */
+  public boolean containsForbiddenCharactersIn() {;
     for (int i = setStartIndex(); i < path.length(); i++) {
       for (char n : forbiddenCharacters) {
-        if (path.charAt(i) == forbiddenCharacters[i]) {
+        if (path.charAt(i) == n) {
           return true;
         }
       }
@@ -78,7 +84,11 @@ public class Path {
     return false;
   }
 
-
+  /**
+   * Checks for valid name length in path.
+   * Allowable value for name length is about 255 characters.
+   * Returns true if lengths ara acceptable and false if is's not.
+   */
   public boolean areValidNameLengthsIn() {
     int folderNameLength = 0;
     for(int i = 0; i < path.length(); i++) {
@@ -93,6 +103,11 @@ public class Path {
     return true;
   }
 
+  /**
+   * Checks whether path is extended length.
+   * Looking for appropriate prefix.
+   * If prefix is found returns true and false if it's not.
+   */
   public boolean isExtendedLengthPath() {
     if (path.length() > 5) {
       if (path.substring(0, 4).equals("\\\\?\\")) {
@@ -101,11 +116,20 @@ public class Path {
     }
     return false;
   }
+
+  /**
+   * Checks whether extended length path is valid.
+   * Such path mustn't contain forward slashes;
+   * Returns true if contains and false if doesn't.
+   */
   public boolean isValidExtendedLengthPath() {
     return !path.contains("/");
   }
 
-
+  /**
+   * Counts specifiers of parent folders.
+   * @return quantity of specifiers.
+   */
   public int countNesting() {
     int counter = 0;
     for (int i = path.indexOf("..\\"); i < path.length() - 2; i += 3) {
@@ -116,15 +140,33 @@ public class Path {
     return counter;
   }
 
+  /**
+   * Checks whether path contains specifier current folder specifier.
+   * Returns true if contains and false if doesn't.
+   */
   private boolean containsCurrentFolderSpecifier() {
+    replaceAllFrontSlashes();
     return path.contains(".\\");
   }
 
+  /**
+   * Checks whether path contains specifier parent folder specifier.
+   * Returns true if contains and false if doesn't.
+   */
   private boolean containsParentFolderSpecifier() {
+    replaceAllFrontSlashes();
     return path.contains("..\\");
   }
 
+  /**
+   * Checks whether path contains disk designator.
+   * If path is extended-length skips prefix.
+   * Return true if contains and false if doesn't.
+   * @see Path#isExtendedLengthPath()
+   * @see Path#isLatinSymbol(char)
+   */
   private boolean containsDiskDesignator() {
+    replaceAllFrontSlashes();
     int startIndex;
     if (isExtendedLengthPath()) {
       startIndex = 5;
@@ -135,6 +177,11 @@ public class Path {
   }
 
 
+  /**
+   * Checks whether gotten symbol is latin.
+   * @param symbol gotten symbol.
+   * Returns true if it's latin symbol and false if it's not.
+   */
   private boolean isLatinSymbol(char symbol) {
     if ((symbol > 65 && symbol < 90) || (symbol > 97) && (symbol < 122)) {
       return true;
@@ -142,7 +189,9 @@ public class Path {
     return false;
   }
 
-
+  /**
+   * Replaces all forward slashes to backslashes.
+   */
   private void replaceAllFrontSlashes() {
     StringBuffer buffer = new StringBuffer(path);
     for (int i = 0; i < path.length(); i++) {
@@ -153,8 +202,19 @@ public class Path {
     path = buffer.toString();
   }
 
+  /**
+   * Sets start index for tests.
+   * Method helps avoid to determine specifiers and prefixes as illegal characters.
+   * If such specifiers are located in unacceptable places method skips them
+   *                which will lead to determine this specifiers as illegal characters
+   *
+   * @return the index from which the tests begins.
+   * @see Path#isExtendedLengthPath()
+   * @see Path#isValidExtendedLengthPath()
+   * @see Path#replaceAllFrontSlashes()
+   * @see Path#containsDiskDesignator()
+   */
   private int setStartIndex() {
-
     int startIndex = 0;
     if (isExtendedLengthPath())
     {
@@ -164,7 +224,6 @@ public class Path {
         startIndex = 0;
       }
     }
-    replaceAllFrontSlashes();
     if (containsCurrentFolderSpecifier()) {
       startIndex += 2;
     } else if (containsParentFolderSpecifier()) {
@@ -172,7 +231,6 @@ public class Path {
     }
     if(containsDiskDesignator()) {
       startIndex += 2;
-
     }
     System.out.println(startIndex);
     return startIndex;

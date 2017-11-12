@@ -1,5 +1,4 @@
 
-
 /**
  * Validates some object path of the file system in Windows OS.
  */
@@ -17,7 +16,6 @@ public class Main {
       System.out.println("Invalid path!");
       return;
     }
-
     if (!path.checkForValidFolderEndings()) {
       System.out.println("Invalid path! The folder names mustn't ends with space or dot.");
       return;
