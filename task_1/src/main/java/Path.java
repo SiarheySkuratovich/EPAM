@@ -3,7 +3,7 @@
  * Makes tests on different features of path in Windows OS.
  */
 public class Path {
-  String path;
+  private String path;
   final static String[] reservedNames;
   final static char[] forbiddenCharacters;
 
