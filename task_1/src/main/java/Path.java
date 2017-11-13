@@ -3,9 +3,9 @@
  * Makes tests on different features of path in Windows OS.
  */
 public class Path {
-  String path;
-  final static String[] reservedNames;
-  final static char[] forbiddenCharacters;
+  private String path;
+  private final static String[] reservedNames;
+  private final static char[] forbiddenCharacters;
 
   static {
     reservedNames = new String[]{"CON", "PRN", "AUX", "NUL", "COM1", "COM2",
