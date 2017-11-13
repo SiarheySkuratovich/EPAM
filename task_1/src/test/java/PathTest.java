@@ -93,6 +93,7 @@ public class PathTest {
       invalidName[i] = 'a';
     }
     String stringInvalidName = String.valueOf(invalidName);
+    System.out.println(stringInvalidName.length());
     Path path = new Path("asdafs/" + stringInvalidName + "/fs");
     boolean actual = path.isPathWithValidNameLengths();
     boolean expected = false;
