@@ -1,19 +1,31 @@
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
- * Created by siarhey on 13.11.17.
+ * Counts quantity of repetitions in collections.
  */
 public class Main {
+  private static Logger log = Logger.getLogger(Main.class.getName());
+
+  /**
+   * Entry-point of the program.
+   * @param args args of command line.
+   */
   public static void main(String[] args) {
-    ArrayList arrayList = new ArrayList();
-    arrayList.add(1);
-    arrayList.add(2);
-    arrayList.add(1);
-    arrayList.add(2);
-    arrayList.add(1);
-    arrayList.add(3);
-    CountedCollection countedCollection = new CountedCollection(arrayList);
-    countedCollection.removeNonRepeatable();
-    System.out.println("Quantity of repeatable objects is: " + countedCollection.getSize());
+    try {
+      ArrayList arrayList = new ArrayList();
+      arrayList.add(1);
+      arrayList.add(2);
+      arrayList.add(1);
+      arrayList.add(2);
+      arrayList.add(1);
+      arrayList.add(3);
+      CountedCollection countedCollection = new CountedCollection(arrayList);
+      countedCollection.removeNonRepeatable();
+      System.out.println("Quantity of repeatable objects is: " + countedCollection.getSize());
+    } catch (Exception e) {
+      log.log(Level.SEVERE, "Exception: ", e);
+    }
   }
 }
