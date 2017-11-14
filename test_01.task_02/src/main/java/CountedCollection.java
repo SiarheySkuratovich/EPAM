@@ -6,7 +6,7 @@ import java.util.*;
 public class CountedCollection {
   private HashMap<Object, Integer> hashMap;
 
-  public CountedCollection(ArrayList arrayList) {
+  public CountedCollection(List arrayList) {
     hashMap = new HashMap<Object, Integer>();
     Integer am;
     for (Object i : arrayList) {
@@ -25,5 +25,9 @@ public class CountedCollection {
 
   public Set<Map.Entry<Object,Integer>> entrySet()   {
     return hashMap.entrySet();
+  }
+
+  public int getSize() {
+    return hashMap.size();
   }
 }
