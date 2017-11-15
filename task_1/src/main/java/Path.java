@@ -4,14 +4,14 @@
  */
 public class Path {
   private String path;
-  private final static String[] reservedNames;
-  private final static char[] forbiddenCharacters;
+  private final static String[] RESERVED_NAMES;
+  private final static char[] FORBIDDEN_CHARACTERS;
 
   static {
-    reservedNames = new String[]{"CON", "PRN", "AUX", "NUL", "COM1", "COM2",
+    RESERVED_NAMES = new String[]{"CON", "PRN", "AUX", "NUL", "COM1", "COM2",
             "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "LPT1",
             "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"};
-    forbiddenCharacters = new char[] {'<', '>', ':', '\"', '|', '?', '*'};
+    FORBIDDEN_CHARACTERS = new char[] {'<', '>', ':', '\"', '|', '?', '*'};
   }
 
   Path(String path) {
@@ -42,7 +42,7 @@ public class Path {
    * @return
    */
   public boolean сontainsReservedNames() {
-    for (String n : reservedNames) {
+    for (String n : RESERVED_NAMES) {
       if (path.contains(n)) {
         return true;
       }
@@ -73,7 +73,7 @@ public class Path {
    */
   public boolean containsForbiddenCharacters() {;
     for (int i = setStartIndex(); i < path.length(); i++) {
-      for (char n : forbiddenCharacters) {
+      for (char n : FORBIDDEN_CHARACTERS) {
         if (path.charAt(i) == n) {
           return true;
         }
