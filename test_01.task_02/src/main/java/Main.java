@@ -22,7 +22,6 @@ public class Main {
       arrayList.add(1);
       arrayList.add(3);
       CountedCollection countedCollection = new CountedCollection(arrayList);
-      countedCollection.removeNonRepeatable();
       System.out.println("Quantity of repeatable objects is: " + countedCollection.getSize());
     } catch (Exception e) {
       log.log(Level.SEVERE, "Exception: ", e);

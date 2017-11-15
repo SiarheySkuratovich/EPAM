@@ -20,17 +20,7 @@ public class CountedCollection {
       am = hashMap.get(i);
       hashMap.put(i, am == null ? 1 : am + 1);
     }
-  }
-
-  /**
-   * Removes non-repeatable elements from {@link CountedCollection#hashMap}
-   */
-  public void removeNonRepeatable() {
-    for(Object key : hashMap.keySet().toArray()) {
-      if (hashMap.get(key) == 1) {
-        hashMap.remove(key);
-      }
-    }
+    removeNonRepeatable();
   }
 
   public Set<Map.Entry<Object,Integer>> entrySet()   {
@@ -39,5 +29,16 @@ public class CountedCollection {
 
   public int getSize() {
     return hashMap.size();
+  }
+
+  /**
+   * Removes non-repeatable elements from {@link CountedCollection#hashMap}
+   */
+  private void removeNonRepeatable() {
+    for(Object key : hashMap.keySet().toArray()) {
+      if (hashMap.get(key) == 1) {
+        hashMap.remove(key);
+      }
+    }
   }
 }
