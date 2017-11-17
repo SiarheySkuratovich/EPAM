@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Random;
 
 /**
@@ -30,6 +31,22 @@ public class EnemyField {
     }
   }
 
+  public HashMap<Character, Integer> getHint() {
+    HashMap<Character, Integer> hint = new HashMap<Character, Integer>();
+    final int numberOfFirstLatinSymbol = 97;
+    for (int i = 0; i < FIELD_SIZE; i++) {
+      for (int j = 0; j < FIELD_SIZE; j++) {
+        if(field[i][j] == true) {
+          hint.put((char)(i + numberOfFirstLatinSymbol),j + 1);
+        }
+      }
+    }
+    return hint;
+  }
+
+  public boolean[][] getField() {
+    return field;
+  }
 
   public int getShipQuantity() {
     return shipQuantity;
