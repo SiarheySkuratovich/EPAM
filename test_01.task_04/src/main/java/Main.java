@@ -1,29 +1,41 @@
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
- * Created by siarhey on 17.11.17.
+ * Sea battle game
  */
 public class Main {
+  private static Logger log = Logger.getLogger(Main.class.getName());
+
+  /**
+   * Start point of the program.
+   * @param args comand line values
+   */
   public static void main(String[] args) {
-    Scanner in = new Scanner(System.in);
-    EnemyField enemyField = new EnemyField();
-    int quantityOfShoots = 0;
-    while (enemyField.getShipQuantitiy() != 0) {
-      System.out.println("Print through a space assumed ship coordinates(letter and number) or print \"exit\" to exit:");
-      String string = in.nextLine();
-      if (string.equals("exit")){
-        break;
+    try {
+      Scanner in = new Scanner(System.in);
+      EnemyField enemyField = new EnemyField();
+      int quantityOfShoots = 0;
+      while (enemyField.getShipQuantitiy() != 0) {
+        System.out.println("Print through a space assumed ship coordinates(letter and number) or print \"exit\" to exit:");
+        String string = in.nextLine();
+        if (string.equals("exit")) {
+          break;
+        }
+        Coordinate coordinate = new Coordinate(string);
+        if (enemyField.contains(coordinate)) {
+          System.out.println("you hit the target!");
+          enemyField.kill(coordinate);
+        } else {
+          System.out.println("miss:(");
+        }
+        quantityOfShoots++;
       }
-      Coordinate coordinate = new Coordinate(string);
-      if (enemyField.contains(coordinate)) {
-        System.out.println("you hit the target!");
-        enemyField.kill(coordinate);
-      } else {
-        System.out.println("miss:(");
-      }
-      quantityOfShoots++;
+      System.out.println("quantity of shoots:" + quantityOfShoots);
+      System.out.println("quantity of sunken ships:" + enemyField.getShipQuantitiy());
+    } catch (Exception e) {
+      log.log(Level.SEVERE, "Exception: ", e);
     }
-    System.out.println("quantity of shoots:" + quantityOfShoots);
-    System.out.println("quantity of sunken ships:" + enemyField.getShipQuantitiy());
   }
 }

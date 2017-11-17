@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 /**
- * Created by siarhey on 17.11.17.
+ * Self-filling enemy field.
  */
 public class EnemyField {
   boolean[][] field;
