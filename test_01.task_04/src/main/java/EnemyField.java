@@ -1,20 +1,19 @@
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Random;
 
 /**
  * Self-filling enemy field.
  */
 public class EnemyField {
-  boolean[][] field;
-  int shipQuantity;
-  final int FIELD_SIZE = 10;
+  private boolean[][] field;
+  private int shipQuantity;
+  private final int FIELD_SIZE = 10;
 
   /**
    * Field fills by ships in random places.
    * And their number is counted.
    */
-  EnemyField() {
+  public EnemyField() {
     field = new boolean[FIELD_SIZE][FIELD_SIZE];
     shipQuantity = 0;
     fillWithFalse();
@@ -31,23 +30,8 @@ public class EnemyField {
     }
   }
 
-  /**
-   * Returns disposition of ships as HashMap.
-   */
-  public HashMap<Character, Integer> getHint() {
-    HashMap<Character, Integer> hint = new HashMap<Character, Integer>();
-    final int numberOfFirstLatinSymbol = 97;
-    for (int i = 0; i < FIELD_SIZE; i++) {
-      for (int j = 0; j < FIELD_SIZE; j++) {
-        if(field[i][j] == true) {
-          hint.put((char)(i + numberOfFirstLatinSymbol),j + 1);
-        }
-      }
-    }
-    return hint;
-  }
 
-  public int getShipQuantitiy() {
+  public int getShipQuantity() {
     return shipQuantity;
   }
 

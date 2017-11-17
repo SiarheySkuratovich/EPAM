@@ -24,7 +24,7 @@ public class Coordinate {
    *           "number" with number from gotten string.
    * @param coordinate gotten string-coordinate to parse.
    */
-  Coordinate(String coordinate) {
+  public Coordinate(String coordinate) {
     try {
       letter = CONVERTER.get(coordinate.charAt(0));
       number = Integer.parseInt(coordinate.substring(2)) - 1;
@@ -39,7 +39,7 @@ public class Coordinate {
    * Initializes "letter" and "number" with random number within field size.
    * @param fieldSize gotten field size.
    */
-  Coordinate (int fieldSize) {
+  public Coordinate (int fieldSize) {
     Random random = new Random();
     letter = random.nextInt(fieldSize);
     number = random.nextInt(fieldSize);

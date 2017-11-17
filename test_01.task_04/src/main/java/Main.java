@@ -17,7 +17,7 @@ public class Main {
       Scanner in = new Scanner(System.in);
       EnemyField enemyField = new EnemyField();
       int quantityOfShoots = 0;
-      while (enemyField.getShipQuantitiy() != 0) {
+      while (enemyField.getShipQuantity() != 0) {
         System.out.println("Print through a space assumed ship coordinates(letter and number) or print \"exit\" to exit:");
         String string = in.nextLine();
         if (string.equals("exit")) {
@@ -33,7 +33,7 @@ public class Main {
         quantityOfShoots++;
       }
       System.out.println("quantity of shoots:" + quantityOfShoots);
-      System.out.println("quantity of sunken ships:" + enemyField.getShipQuantitiy());
+      System.out.println("quantity of sunken ships:" + enemyField.getShipQuantity());
     } catch (Exception e) {
       log.log(Level.SEVERE, "Exception: ", e);
     }
